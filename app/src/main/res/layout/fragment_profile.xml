@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_first_star"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:src="@mipmap/ic_star_foreground"
+        app:layout_constraintBottom_toTopOf="@+id/tv_name"
+        app:layout_constraintEnd_toStartOf="@+id/iv_second_star"
+        app:layout_constraintStart_toStartOf="@+id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/iv_avatar" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_second_star"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="4dp"
+
+        android:src="@mipmap/ic_star_foreground"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_first_star"
+        app:layout_constraintEnd_toStartOf="@+id/iv_third_star"
+        app:layout_constraintStart_toEndOf="@+id/iv_first_star"
+        app:layout_constraintTop_toTopOf="@+id/iv_first_star" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_third_star"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@mipmap/ic_star_foreground"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_second_star"
+        app:layout_constraintEnd_toEndOf="@+id/iv_avatar"
+        app:layout_constraintStart_toEndOf="@+id/iv_second_star"
+        app:layout_constraintTop_toTopOf="@+id/iv_second_star" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_avatar_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/name_caps"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_avatar" />
+
+    <TextView
+        android:id="@+id/tv_name_put"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/name_caps"
+        android:textColor="@color/light_red"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+        app:layout_constraintStart_toEndOf="@+id/tv_name"
+        app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_number"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/player_number"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_number_put"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/player_number"
+        android:textColor="@color/light_red"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_number"
+        app:layout_constraintStart_toEndOf="@+id/tv_number"
+        app:layout_constraintTop_toTopOf="@+id/tv_number" />
+
+    <TextView
+        android:id="@+id/tv_money_cnt"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/money_cnt"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_number" />
+
+    <TextView
+        android:id="@+id/tv_money_cnt_put"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/money_cnt"
+        android:textColor="@color/light_red"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_money_cnt"
+        app:layout_constraintStart_toEndOf="@+id/tv_money_cnt"
+        app:layout_constraintTop_toTopOf="@+id/tv_money_cnt" />
+
+    <TextView
+        android:id="@+id/tv_credit"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/credit"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_money_cnt" />
+
+    <TextView
+        android:id="@+id/tv_credit_put"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/credit"
+        android:textColor="@color/light_red"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_credit"
+        app:layout_constraintStart_toEndOf="@+id/tv_credit"
+        app:layout_constraintTop_toTopOf="@+id/tv_credit" />
+
+
+
+    <TextView
+        android:id="@+id/tv_percent"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/percent"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_credit" />
+
+    <TextView
+        android:id="@+id/tv_money_percent_put"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/_40"
+        android:textColor="@color/light_red"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_percent"
+        app:layout_constraintStart_toEndOf="@+id/tv_percent"
+        app:layout_constraintTop_toTopOf="@+id/tv_percent" />
+
+
+    <TextView
+        android:id="@+id/tv_cards"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/cards"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_percent" />
+
+    <TextView
+        android:id="@+id/tv_paper"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/paper"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_cards"
+        app:layout_constraintStart_toEndOf="@+id/tv_cards"
+        app:layout_constraintTop_toTopOf="@+id/tv_cards" />
+
+    <TextView
+        android:id="@+id/tv_money_paper_put"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/_3"
+        android:textColor="@color/light_red"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_paper"
+        app:layout_constraintStart_toEndOf="@+id/tv_paper"
+        app:layout_constraintTop_toTopOf="@+id/tv_paper" />
+
+    <TextView
+        android:id="@+id/tv_scissors"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/Scissors"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_paper"
+        app:layout_constraintTop_toBottomOf="@+id/tv_paper" />
+
+    <TextView
+        android:id="@+id/tv_scissors_put"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/_3"
+        android:textColor="@color/light_red"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_scissors"
+        app:layout_constraintStart_toEndOf="@+id/tv_scissors"
+        app:layout_constraintTop_toTopOf="@+id/tv_scissors" />
+
+
+    <TextView
+        android:id="@+id/tv_stone"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/stone"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_scissors"
+        app:layout_constraintTop_toBottomOf="@+id/tv_scissors" />
+
+    <TextView
+        android:id="@+id/tv_stone_put"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/_3"
+        android:textColor="@color/light_red"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_stone"
+        app:layout_constraintStart_toEndOf="@+id/tv_stone"
+        app:layout_constraintTop_toTopOf="@+id/tv_stone" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_continue"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+
+        android:layout_marginTop="8dp"
+
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/continue_game"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_stone" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

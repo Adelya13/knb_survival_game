@@ -1,3 +1,26 @@
 <resources>
-    <string name="app_name">knb_game</string>
+    <string name="app_name">КНБ</string>
+    <string name="email">email</string>
+    <string name="app_name_string">КНБ на выживание</string>
+    <string name="name">имя</string>
+    <string name="password">пароль</string>
+    <string name="registration">Регистрация</string>
+    <string name="start">Начать</string>
+    <string name="signin">Войти</string>
+    <string name="name_caps">Имя</string>
+    <string name="player_number">Номер игрока</string>
+    <string name="money_cnt">Количество денег</string>
+    <string name="continue_game">продолжить</string>
+    <string name="credit">Сумма кредита</string>
+    <string name="percent">Процент</string>
+    <string name="_40">40%</string>
+    <string name="cards">Карты:</string>
+    <string name="paper">Бумага</string>
+    <string name="_3">3</string>
+    <string name="Scissors">Ножницы</string>
+    <string name="stone">Камень</string>
+    <string name="welcome_text">Добро пожаловать игрок №5. Ты здесь, а значит ты спустил свою жизнь в унитаз. Вместо того, чтобы стать порядочным гражданином и усердно работать за гроши, ты решил пойти по пути легких денег.. и к чему тебя привёл этот путь? Ха, ты погряз в долгах! Твоя семья хочет забыть о тебе, а друзей у тебя уже давно нет. Но не преживай, раз ты здесь, значит ты нашел в себе мужество попытаться изменить свою жизнь, рискнув ею. Ну, что ж хватит интриг, пора объяснить тебе правила игры.</string>
+    <string name="sum">сумма</string>
+    <string name="start_game">Я уже не новичок</string>
+    <string name="rules">Правила</string>
 </resources>
