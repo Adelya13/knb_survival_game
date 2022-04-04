@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/nav_graph"
-             app:startDestination="@id/registerFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/registerFragment">
 
 
     <fragment
         android:id="@+id/registerFragment"
         android:name="kpfu.itis.valisheva.knb_game.login.presentation.fragments.RegisterFragment"
-        android:label="RegisterFragment" >
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
@@ -16,7 +18,8 @@
     <fragment
         android:id="@+id/signInFragment"
         android:name="kpfu.itis.valisheva.knb_game.login.presentation.fragments.SignInFragment"
-        android:label="SignInFragment" >
+        android:label="SignInFragment"
+        tools:layout="@layout/fragment_signin">
         <action
             android:id="@+id/action_signInFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -27,5 +30,33 @@
     <fragment
         android:id="@+id/mainStoryFragment"
         android:name="kpfu.itis.valisheva.knb_game.MainStoryFragment"
-        android:label="MainStoryFragment" />
+        android:label="MainStoryFragment"
+        tools:layout="@layout/fragment_main_story">
+        <action
+            android:id="@+id/action_mainStoryFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="kpfu.itis.valisheva.knb_game.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_basicGameFragment"
+            app:destination="@id/basicGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/creditFragment"
+        android:name="kpfu.itis.valisheva.knb_game.CreditFragment"
+        android:label="CreditFragment"
+        tools:layout="@layout/fragment_credit"/>
+    <fragment
+        android:id="@+id/basicGameFragment"
+        android:name="kpfu.itis.valisheva.knb_game.BasicGameFragment"
+        android:label="BasicGameFragment"
+        tools:layout="@layout/fragment_basic_game">
+        <action
+            android:id="@+id/action_basicGameFragment_to_creditFragment"
+            app:destination="@id/creditFragment" />
+    </fragment>
 </navigation>

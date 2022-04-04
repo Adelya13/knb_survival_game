@@ -1,4 +1,4 @@
-package kpfu.itis.valisheva.knb_game.profile.presentation
+package kpfu.itis.valisheva.knb_game
 
 import androidx.fragment.app.Fragment
 import kpfu.itis.valisheva.knb_game.R
