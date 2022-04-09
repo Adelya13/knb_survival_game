@@ -35,6 +35,12 @@
         <action
             android:id="@+id/action_mainStoryFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_mainStoryFragment_to_creditFragment"
+            app:destination="@id/creditFragment" />
+        <action
+            android:id="@+id/action_mainStoryFragment_to_basicGameFragment"
+            app:destination="@id/basicGameFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -42,21 +48,21 @@
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile">
         <action
-            android:id="@+id/action_profileFragment_to_basicGameFragment"
-            app:destination="@id/basicGameFragment" />
+            android:id="@+id/action_profileFragment_to_mainStoryFragment"
+            app:destination="@id/mainStoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/creditFragment"
         android:name="kpfu.itis.valisheva.knb_game.CreditFragment"
         android:label="CreditFragment"
-        tools:layout="@layout/fragment_credit"/>
+        tools:layout="@layout/fragment_credit">
+        <action
+            android:id="@+id/action_creditFragment_to_mainStoryFragment"
+            app:destination="@id/mainStoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/basicGameFragment"
         android:name="kpfu.itis.valisheva.knb_game.BasicGameFragment"
         android:label="BasicGameFragment"
-        tools:layout="@layout/fragment_basic_game">
-        <action
-            android:id="@+id/action_basicGameFragment_to_creditFragment"
-            app:destination="@id/creditFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_basic_game"/>
 </navigation>

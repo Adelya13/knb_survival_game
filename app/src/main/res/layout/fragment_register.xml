@@ -108,7 +108,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_continue"
+        android:id="@+id/btn_refuse"
         style="@style/ButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
         android:layout_marginBottom="8dp"
 
         android:text="@string/signin"
-        app:layout_constraintBottom_toTopOf="@+id/btn_continue"
+        app:layout_constraintBottom_toTopOf="@+id/btn_refuse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_password" />

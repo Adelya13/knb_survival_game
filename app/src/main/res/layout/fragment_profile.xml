@@ -126,7 +126,7 @@
         app:layout_constraintTop_toTopOf="@+id/tv_money_cnt" />
 
     <TextView
-        android:id="@+id/tv_credit"
+        android:id="@+id/tv_choose"
         style="@style/BasicTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -146,9 +146,9 @@
         android:text="@string/credit"
         android:textColor="@color/light_red"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_credit"
-        app:layout_constraintStart_toEndOf="@+id/tv_credit"
-        app:layout_constraintTop_toTopOf="@+id/tv_credit" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_choose"
+        app:layout_constraintStart_toEndOf="@+id/tv_choose"
+        app:layout_constraintTop_toTopOf="@+id/tv_choose" />
 
 
 
@@ -162,7 +162,7 @@
         android:text="@string/percent"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_credit" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_choose" />
 
     <TextView
         android:id="@+id/tv_money_percent_put"
@@ -266,7 +266,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_continue"
+        android:id="@+id/btn_refuse"
         style="@style/ButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
