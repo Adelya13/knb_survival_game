@@ -47,7 +47,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_refuse"
+        android:id="@+id/btn_continue"
         style="@style/ButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
