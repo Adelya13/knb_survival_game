@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/registerFragment">
+    app:startDestination="@id/signInFragment">
 
 
     <fragment
@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_registerFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
@@ -24,17 +27,14 @@
             android:id="@+id/action_signInFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
         <action
-            android:id="@+id/action_signInFragment_to_mainStoryFragment"
-            app:destination="@id/mainStoryFragment" />
+            android:id="@+id/action_signInFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainStoryFragment"
         android:name="kpfu.itis.valisheva.knb_game.MainStoryFragment"
         android:label="MainStoryFragment"
         tools:layout="@layout/fragment_main_story">
-        <action
-            android:id="@+id/action_mainStoryFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_mainStoryFragment_to_creditFragment"
             app:destination="@id/creditFragment" />
@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_profileFragment_to_mainStoryFragment"
             app:destination="@id/mainStoryFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/creditFragment"
