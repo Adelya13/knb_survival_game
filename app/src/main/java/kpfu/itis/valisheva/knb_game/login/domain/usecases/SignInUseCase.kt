@@ -11,9 +11,12 @@ import kpfu.itis.valisheva.knb_game.login.domain.repositories.UserRepository
 import javax.inject.Inject
 
 class SignInUseCase @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    operator fun invoke(email: String, password: String): Task<AuthResult> {
-        return userRepository.signIn(email, password)
+    suspend operator fun invoke(email: String, password: String): FirebaseUser {
+        return withContext(dispatcher){
+            userRepository.signIn(email, password)
+        }
     }
 }

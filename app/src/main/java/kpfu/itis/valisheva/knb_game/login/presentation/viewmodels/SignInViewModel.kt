@@ -23,27 +23,12 @@ class SignInViewModel @Inject constructor(
     fun signIn(email: String, password : String){
         viewModelScope.launch {
             try{
-               addListenerToUseCase(email,password)
+               val user = signInUseCase(email, password)
+                _user.value = Result.success(user)
+
             }catch (ex: Exception){
                 _user.value = Result.failure(ex)
             }
         }
-    }
-
-    private fun addListenerToUseCase(email: String, password: String){
-        signInUseCase(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val user = task.result.user
-                    if(user !=null){
-                        _user.value = Result.success(user)
-                    }else{
-                        _user.value = Result.failure(Exception("signInWithEmail:failure"))
-                    }
-                }else{
-                    _user.value = Result.failure(Exception("signInWithEmail:failure"))
-                    Log.w("SIGN_IN_EXCEPTION", "signInUserWithEmail:failure", task.exception)
-                }
-            }
     }
 }

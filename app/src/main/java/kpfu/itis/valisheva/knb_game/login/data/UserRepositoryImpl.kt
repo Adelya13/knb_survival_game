@@ -14,53 +14,50 @@ import kotlinx.coroutines.awaitCancellation
 import kpfu.itis.valisheva.knb_game.login.domain.models.UserModel
 import kpfu.itis.valisheva.knb_game.login.domain.repositories.UserRepository
 import okhttp3.internal.wait
+import java.lang.Exception
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 import kotlin.math.asin
 
 class UserRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth
 ): UserRepository {
 
-
-    override fun signIn(email: String, password: String): Task<AuthResult> {
-        return auth.signInWithEmailAndPassword(email, password)
+    override suspend fun signIn(email: String, password: String): FirebaseUser = suspendCoroutine{
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    if(user!=null) {
+                        it.resume(user)
+                    }else{
+                        it.resumeWithException(Exception("SIGN_IN_EXCEPTION"))
+                    }
+                }else{
+                    it.resumeWithException(Exception("SIGN_IN_EXCEPTION"))
+                    Log.w("SIGN_IN_EXCEPTION", "signInUserWithEmail:failure", task.exception)
+                }
+            }
     }
 
-    override fun register(email: String, password: String, name: String): Task<AuthResult> {
-        return auth.createUserWithEmailAndPassword(email, password)
+    override suspend fun register(email: String, password: String, name: String):  FirebaseUser = suspendCoroutine{
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    if(user!=null) {
+                        it.resume(user)
+                    }else{
+                        it.resumeWithException(Exception("SIGN_IN_EXCEPTION"))
+                    }
+
+                }else{
+                    it.resumeWithException(Exception("SIGN_IN_EXCEPTION"))
+                    Log.w("REGISTER_EXCEPTION", "createUserWithEmail:failure", task.exception)
+                }
+            }
     }
-
-
-//    override fun signIn(email: String, password: String): FirebaseUser? {
-//        var user: FirebaseUser? = null
-//            auth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//                        user = auth.currentUser
-//                        println("UUUUSSSEEERRR $user")
-//                    }else{
-//                        Log.w("SIGN_IN_EXCEPTION", "signInUserWithEmail:failure", task.exception)
-//                    }
-//                }
-//            println("UUUUSSSEEERRR $user")
-//            return user
-//
-//    }
-
-//    override fun register(email: String, password: String, name: String):  FirebaseUser? {
-//        var user: FirebaseUser? = null
-//
-//        auth.createUserWithEmailAndPassword(email, password)
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    user = auth.currentUser
-//
-//                }else{
-//                    Log.w("REGISTER_EXCEPTION", "createUserWithEmail:failure", task.exception)
-//                }
-//            }
-//
-//        return user
-//    }
 }
 

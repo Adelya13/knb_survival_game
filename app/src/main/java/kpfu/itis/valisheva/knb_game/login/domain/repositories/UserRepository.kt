@@ -7,7 +7,7 @@ import kpfu.itis.valisheva.knb_game.login.domain.models.UserModel
 
 interface UserRepository {
 
-    fun signIn(email: String, password: String): Task<AuthResult>
-    fun register(email: String, password: String, name: String):  Task<AuthResult>
+    suspend fun signIn(email: String, password: String): FirebaseUser
+    suspend fun register(email: String, password: String, name: String):  FirebaseUser
 
 }

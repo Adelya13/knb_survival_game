@@ -11,10 +11,13 @@ import kpfu.itis.valisheva.knb_game.login.domain.repositories.UserRepository
 import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    operator fun invoke(email: String, password: String, name: String): Task<AuthResult> {
-        return userRepository.register(email, password, name)
+    suspend operator fun invoke(email: String, password: String, name: String): FirebaseUser  {
+        return withContext(dispatcher){
+            userRepository.register(email, password, name)
+        }
 
     }
 }
