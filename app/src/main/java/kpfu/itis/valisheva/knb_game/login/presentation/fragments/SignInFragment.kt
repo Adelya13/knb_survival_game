@@ -46,7 +46,10 @@ class SignInFragment: Fragment(R.layout.fragment_signin) {
             btnContinue.setOnClickListener {
                 val email = binding.inputEmail.text.toString()
                 val password = binding.inputPassword.text.toString()
-                if(validator.validateSignIn(binding)){
+                if(
+                    validator.checkEmail(inputEmail,etEmail) &&
+                    validator.checkPassword(inputPassword,etPassword)
+                ){
                     signInViewModel.signIn(email, password)
                 }
 
@@ -64,12 +67,13 @@ class SignInFragment: Fragment(R.layout.fragment_signin) {
         signInViewModel.user.observe(viewLifecycleOwner){
             it?.fold(onSuccess = { userFireBase ->
                 println(userFireBase.toString())
-                showMessage("signInWithEmail:success")
                 findNavController().navigate(
                     R.id.action_signInFragment_to_profileFragment
                 )
             },onFailure = { exception ->
-                showMessage("Authentication failed")
+                exception.message?.let { message ->
+                    showMessage(message)
+                }
                 Log.e(TAG, "signInWithEmail:failure", exception)
             })
         }

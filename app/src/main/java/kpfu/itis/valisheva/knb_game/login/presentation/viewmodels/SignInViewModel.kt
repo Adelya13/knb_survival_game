@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kpfu.itis.valisheva.knb_game.login.domain.models.UserInfo
 import kpfu.itis.valisheva.knb_game.login.domain.usecases.SignInUseCase
 import okhttp3.internal.wait
 import javax.inject.Inject
@@ -16,8 +17,8 @@ class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase
 ): ViewModel() {
 
-    private var _user: MutableLiveData<Result<FirebaseUser>> = MutableLiveData()
-    val user: LiveData<Result<FirebaseUser>> = _user
+    private var _user: MutableLiveData<Result<UserInfo>> = MutableLiveData()
+    val user: LiveData<Result<UserInfo>> = _user
 
 
     fun signIn(email: String, password : String){

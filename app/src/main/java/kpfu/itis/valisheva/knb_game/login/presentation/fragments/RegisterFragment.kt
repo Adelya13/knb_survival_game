@@ -10,14 +10,20 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kpfu.itis.valisheva.knb_game.App
 import kpfu.itis.valisheva.knb_game.R
 import kpfu.itis.valisheva.knb_game.app_utils.AppViewModelFactory
 import kpfu.itis.valisheva.knb_game.databinding.FragmentRegisterBinding
+import kpfu.itis.valisheva.knb_game.login.domain.models.UserInfo
 import kpfu.itis.valisheva.knb_game.login.presentation.LoginValidator
 import kpfu.itis.valisheva.knb_game.login.presentation.viewmodels.RegisterViewModel
 import kpfu.itis.valisheva.knb_game.login.presentation.viewmodels.SignInViewModel
+import java.util.*
 import javax.inject.Inject
 
 class RegisterFragment: Fragment(R.layout.fragment_register) {
@@ -43,13 +49,15 @@ class RegisterFragment: Fragment(R.layout.fragment_register) {
         initObservers()
         validator = LoginValidator()
 
-
         with(binding){
             btnContinue.setOnClickListener {
                 val email = binding.inputEmail.text.toString()
                 val password = binding.inputPassword.text.toString()
                 val name = binding.inputName.text.toString()
-                if (validator.validateRegister(binding)) {
+                if (
+                    validator.checkEmail(inputEmail,etEmail) &&
+                    validator.checkPassword(inputPassword,etPassword)
+                ) {
                     registerViewModel.register(email, password, name)
                 }
 
@@ -65,17 +73,27 @@ class RegisterFragment: Fragment(R.layout.fragment_register) {
 
     private fun initObservers(){
         registerViewModel.user.observe(viewLifecycleOwner){
-            it?.fold(onSuccess = { userFireBase ->
-                println(userFireBase.toString())
-                showMessage("createUserWithEmail:success")
-                findNavController().navigate(
-                    R.id.action_registerFragment_to_profileFragment
-                )
+            it?.fold(onSuccess = { user ->
+                println(user.toString())
+                navigateToProfile(user)
+
             },onFailure = { exception ->
-                showMessage("Registration failed")
+                exception.message?.let { message ->
+                    showMessage(message)
+                }
                 Log.e(TAG, "createUserWithEmail:failed", exception)
             })
         }
+    }
+
+    private fun navigateToProfile(user: UserInfo){
+        val bundle = Bundle().apply {
+            putString("email", user.email)
+        }
+        findNavController().navigate(
+            R.id.action_registerFragment_to_profileFragment,
+            bundle
+        )
     }
 
     private fun showMessage(message: String) {
