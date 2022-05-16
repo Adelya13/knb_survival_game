@@ -11,6 +11,9 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import kpfu.itis.valisheva.knb_game.R
 import kpfu.itis.valisheva.knb_game.databinding.ActivityMainBinding
+import android.content.Intent
+import androidx.navigation.findNavController
+import kpfu.itis.valisheva.knb_game.start_game.presentation.fragments.ProfileFragment
 
 
 class MainActivity : AppCompatActivity() {

@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainStoryFragment"
-        android:name="kpfu.itis.valisheva.knb_game.MainStoryFragment"
+        android:name="kpfu.itis.valisheva.knb_game.start_game.presentation.fragments.MainStoryFragment"
         android:label="MainStoryFragment"
         tools:layout="@layout/fragment_main_story">
         <action
@@ -56,16 +56,19 @@
     </fragment>
     <fragment
         android:id="@+id/creditFragment"
-        android:name="kpfu.itis.valisheva.knb_game.CreditFragment"
+        android:name="kpfu.itis.valisheva.knb_game.start_game.presentation.fragments.CreditFragment"
         android:label="CreditFragment"
         tools:layout="@layout/fragment_credit">
         <action
             android:id="@+id/action_creditFragment_to_mainStoryFragment"
             app:destination="@id/mainStoryFragment" />
+        <action
+            android:id="@+id/action_creditFragment_to_basicGameFragment"
+            app:destination="@id/basicGameFragment" />
     </fragment>
     <fragment
         android:id="@+id/basicGameFragment"
-        android:name="kpfu.itis.valisheva.knb_game.BasicGameFragment"
+        android:name="kpfu.itis.valisheva.knb_game.basic_game.presentation.fragments.BasicGameFragment"
         android:label="BasicGameFragment"
         tools:layout="@layout/fragment_basic_game"/>
 </navigation>

@@ -9,6 +9,9 @@ import kpfu.itis.valisheva.knb_game.app_utils.AppViewModelFactory
 import kpfu.itis.valisheva.knb_game.di.ViewModelKey
 import kpfu.itis.valisheva.knb_game.login.presentation.viewmodels.RegisterViewModel
 import kpfu.itis.valisheva.knb_game.login.presentation.viewmodels.SignInViewModel
+import kpfu.itis.valisheva.knb_game.start_game.presentation.viewmodels.CreditViewModel
+import kpfu.itis.valisheva.knb_game.start_game.presentation.viewmodels.MainStoryViewModel
+import kpfu.itis.valisheva.knb_game.start_game.presentation.viewmodels.ProfileViewModel
 
 @Module
 interface ViewModelModule {
@@ -32,5 +35,27 @@ interface ViewModelModule {
     fun bindRegisterViewModel(
         viewModel: RegisterViewModel
     ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProfileViewModel::class)
+    fun bindProfileViewModel(
+        viewModel: ProfileViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainStoryViewModel::class)
+    fun bindMainStoryViewModel(
+        viewModel: MainStoryViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CreditViewModel::class)
+    fun bindCreditViewModel(
+        viewModel: CreditViewModel
+    ): ViewModel
+
 
 }

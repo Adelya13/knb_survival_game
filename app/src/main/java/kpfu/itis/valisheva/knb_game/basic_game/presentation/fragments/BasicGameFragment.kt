@@ -1,10 +1,9 @@
-package kpfu.itis.valisheva.knb_game
+package kpfu.itis.valisheva.knb_game.basic_game.presentation.fragments
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
+import kpfu.itis.valisheva.knb_game.R
 import kpfu.itis.valisheva.knb_game.databinding.FragmentBasicGameBinding
 import kpfu.itis.valisheva.knb_game.decorators.SpaceItemDecorator
 

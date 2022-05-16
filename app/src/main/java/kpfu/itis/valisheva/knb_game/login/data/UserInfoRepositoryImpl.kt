@@ -3,9 +3,8 @@ package kpfu.itis.valisheva.knb_game.login.data
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import kotlinx.coroutines.*
 import kpfu.itis.valisheva.knb_game.login.domain.models.UserInfo
-import kpfu.itis.valisheva.knb_game.login.domain.repositories.UserRepository
+import kpfu.itis.valisheva.knb_game.login.domain.repositories.UserInfoRepository
 import kpfu.itis.valisheva.knb_game.login.utils.exceptions.NotFoundUserExceptions
 import kpfu.itis.valisheva.knb_game.login.utils.exceptions.SignInFailedException
 import kpfu.itis.valisheva.knb_game.login.utils.exceptions.UserAlreadyRegisteredException
@@ -14,10 +13,10 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class UserRepositoryImpl @Inject constructor(
+class UserInfoRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth,
     private val dbReference: DatabaseReference
-): UserRepository {
+): UserInfoRepository {
 
     override suspend fun signIn(email: String, password: String): UserInfo = suspendCoroutine{
 
@@ -31,7 +30,8 @@ class UserRepositoryImpl @Inject constructor(
                                 val user = UserInfo(
                                     info.child("name").value.toString(),
                                     info.child("email").value.toString(),
-                                    info.child("moneyCnt").value.toString().toInt()
+                                    info.child("moneyCnt").value.toString().toInt(),
+                                    info.child("number").value.toString().toInt()
                                 )
                                 it.resume(user)
 
@@ -40,7 +40,7 @@ class UserRepositoryImpl @Inject constructor(
                                 println("Exception")
                             }
                         }.addOnFailureListener{ex->
-                            it.resumeWithException(NotFoundUserExceptions("Пользователь не найден"))
+                            it.resumeWithException(NotFoundUserExceptions("Нет сети"))
                         }
                     }else{
                         it.resumeWithException(NotFoundUserExceptions("Проблемы со входом, попробуйте позже"))
@@ -58,7 +58,7 @@ class UserRepositoryImpl @Inject constructor(
                 if (task.isSuccessful) {
                     val currUser = auth.currentUser
                     if(currUser!=null) {
-                        val user = UserInfo(name,email,0)
+                        val user = UserInfo(name,email,0, auth.currentUser.hashCode())
                         dbReference.child("users").child(currUser.uid).setValue(user)
                         it.resume(user)
 

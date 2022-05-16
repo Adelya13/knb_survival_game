@@ -11,6 +11,9 @@ import kpfu.itis.valisheva.knb_game.di.modules.RepositoryModule
 import kpfu.itis.valisheva.knb_game.di.modules.ViewModelModule
 import kpfu.itis.valisheva.knb_game.login.presentation.fragments.RegisterFragment
 import kpfu.itis.valisheva.knb_game.login.presentation.fragments.SignInFragment
+import kpfu.itis.valisheva.knb_game.start_game.presentation.fragments.CreditFragment
+import kpfu.itis.valisheva.knb_game.start_game.presentation.fragments.MainStoryFragment
+import kpfu.itis.valisheva.knb_game.start_game.presentation.fragments.ProfileFragment
 
 @Component(
     modules = [
@@ -33,8 +36,9 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-
-
     fun inject(signInFragment: SignInFragment)
     fun inject(registerFragment: RegisterFragment)
+    fun inject(profileFragment: ProfileFragment)
+    fun inject(mainStoryFragment: MainStoryFragment)
+    fun inject(creditFragment: CreditFragment)
 }

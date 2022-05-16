@@ -40,7 +40,19 @@ class LoginValidator {
         }
         return valid
     }
-    fun checkName(){
+    fun checkName(inputName: AppCompatEditText, etName: TextInputLayout): Boolean {
+        var valid = true
+        val name = etName.toString()
+        when {
+            TextUtils.isEmpty(name) -> {
+                etName.error = "заполните графу Имя"
+                valid = false
+            }
+            else -> {
+                etName.error = null
+            }
+        }
+        return valid
 
     }
 
