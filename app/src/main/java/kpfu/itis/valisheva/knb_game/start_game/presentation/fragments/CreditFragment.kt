@@ -47,7 +47,7 @@ class CreditFragment: Fragment(R.layout.fragment_credit) {
                 )
             }
             btnContinue.setOnClickListener {
-                addCreditMoney()
+                addCreditMoneyAndStartGame()
                 findNavController().navigate(
                     R.id.action_creditFragment_to_basicGameFragment
                 )
@@ -67,11 +67,18 @@ class CreditFragment: Fragment(R.layout.fragment_credit) {
     }
 
 
-
     private fun addCreditMoney(){
         with(binding) {
             if(validator.checkCredit(inputCreditSum,etCreditSum)){
                 creditViewModel.getCredit(inputCreditSum.text.toString().toInt())
+            }
+        }
+    }
+
+    private fun addCreditMoneyAndStartGame(){
+        with(binding) {
+            if(validator.checkCredit(inputCreditSum,etCreditSum)){
+                creditViewModel.getCreditAndStartGame(inputCreditSum.text.toString().toInt())
             }
         }
     }

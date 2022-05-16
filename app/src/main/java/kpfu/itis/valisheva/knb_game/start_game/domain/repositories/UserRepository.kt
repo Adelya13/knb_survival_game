@@ -7,4 +7,5 @@ interface UserRepository{
     suspend fun findUser() : User
     suspend fun signOut()
     suspend fun getCredit(credit: Int)
+    suspend fun start()
 }

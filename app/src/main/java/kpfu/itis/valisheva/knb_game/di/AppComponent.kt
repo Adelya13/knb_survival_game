@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import dagger.BindsInstance
 import dagger.Component
 import kpfu.itis.valisheva.knb_game.App
+import kpfu.itis.valisheva.knb_game.basic_game.presentation.fragments.BasicGameFragment
 import kpfu.itis.valisheva.knb_game.di.modules.AppModule
 import kpfu.itis.valisheva.knb_game.di.modules.FireBaseModule
 import kpfu.itis.valisheva.knb_game.di.modules.RepositoryModule
@@ -41,4 +42,5 @@ interface AppComponent {
     fun inject(profileFragment: ProfileFragment)
     fun inject(mainStoryFragment: MainStoryFragment)
     fun inject(creditFragment: CreditFragment)
+    fun inject(basicGameFragment: BasicGameFragment)
 }

@@ -88,14 +88,12 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
             doInvisibleAdditionalInfo()
             tvNamePut.text = user.name
             tvMoneyCntPut.text = user.moneyCnt.toString()
-            tvNumberPut.text = user.number.toString()
         }
     }
 
     private fun doInvisibleAdditionalInfo(){
         with(binding){
-//            tvNumber.visibility = View.INVISIBLE
-//            tvNumberPut.visibility = View.INVISIBLE
+
             ivFirstStar.visibility = View.INVISIBLE
             ivSecondStar.visibility = View.INVISIBLE
             ivThirdStar.visibility = View.INVISIBLE
