@@ -7,5 +7,6 @@ interface PlayerRepository {
     suspend fun startGame() : Player
     suspend fun searchPlayers() : ArrayList<Player>
     suspend fun findPlayerStarsCnt() : Int
+    suspend fun requestLocalChallenge(email: String) : ArrayList<Player>
 
 }

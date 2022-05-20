@@ -78,7 +78,7 @@ class MainStoryFragment: Fragment(R.layout.fragment_main_story) {
             .build()
 
         findNavController().navigate(
-            R.id.action_creditFragment_to_basicGameFragment,
+            R.id.action_mainStoryFragment_to_basicGameFragment,
             bundle,
             options
         )

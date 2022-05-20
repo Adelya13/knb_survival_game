@@ -20,6 +20,7 @@ class PlayerAdapter(
     }
 
     override fun getItemCount(): Int = list.size
+
 }
 
 

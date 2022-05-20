@@ -17,10 +17,11 @@ class PlayerHolder (
         with(binding) {
             tvName.text = item.name
         }
+
         visibleStars(item.cntStar)
 
         itemView.setOnClickListener {
-            action(item.email)
+            action(item.uid)
         }
     }
 

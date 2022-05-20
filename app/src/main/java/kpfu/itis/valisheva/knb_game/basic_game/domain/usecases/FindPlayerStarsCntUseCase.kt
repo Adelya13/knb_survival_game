@@ -7,7 +7,7 @@ import kpfu.itis.valisheva.knb_game.basic_game.domain.models.Player
 import kpfu.itis.valisheva.knb_game.basic_game.domain.repositories.PlayerRepository
 import javax.inject.Inject
 
-class FindPlayerStarsCnt @Inject constructor(
+class FindPlayerStarsCntUseCase @Inject constructor(
     private val playerRepository: PlayerRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {

@@ -3,6 +3,7 @@ package kpfu.itis.valisheva.knb_game.basic_game.presentation.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
@@ -41,6 +42,7 @@ class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
         binding = FragmentBasicGameBinding.bind(view)
         initRV()
         initObservers()
+        basicGameViewModel.findStarsCnt()
         if(arguments != null){
             if(arguments?.get(START_GAME_KEY) == true){
                 basicGameViewModel.startGame()
@@ -54,9 +56,11 @@ class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
     private fun initObservers(){
         basicGameViewModel.playerList.observe(viewLifecycleOwner){ it ->
             it?.fold(onSuccess = { playerList ->
-                basicGameViewModel.findStarsCnt()
                 initAdapter(playerList)
-                hideLoading()
+                if(binding.progressBar.isVisible){
+                    hideLoading()
+                }
+
             },onFailure = { exception ->
                 showMessage("Server Problem")
                 Log.e("PLAYER_FAILURE", "searchPlayers:failed", exception)
@@ -78,6 +82,14 @@ class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
                 Log.e("PLAYER_START_FAILURE", "startGame:failed", exception)
             })
         }
+        basicGameViewModel.playersInGameList.observe(viewLifecycleOwner){
+            it?.fold(onSuccess = { players ->
+                //initAdapterWithoutPlayersInGame(players)
+            },onFailure = { exception ->
+                showMessage("Player not inter to game")
+                Log.e("PLAYER_START_FAILURE", "startGame:failed", exception)
+            })
+        }
 
     }
 
@@ -86,22 +98,20 @@ class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
         basicGameViewModel.searchPlayers()
     }
 
+
+
     private fun initAdapter(players: ArrayList<Player>){
-        println("PLAYERS FOR ADAPTER")
-        players.forEach { player ->
-            println(player.toString())
-        }
+
         playerAdapter = PlayerAdapter(players){
             requestLocalChallenge(it)
         }
-        println("AAADDDAAAPPPTTEER "+playerAdapter.toString())
         binding.rvPlayers.apply {
             adapter = playerAdapter
         }
     }
 
-    private fun requestLocalChallenge(email: String){
-        basicGameViewModel.requestLocalChallenge(email)
+    private fun requestLocalChallenge(uid: String){
+        basicGameViewModel.requestLocalChallenge(uid)
     }
 
 

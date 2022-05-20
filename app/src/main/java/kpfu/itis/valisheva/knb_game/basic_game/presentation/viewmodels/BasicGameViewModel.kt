@@ -6,15 +6,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kpfu.itis.valisheva.knb_game.basic_game.domain.models.Player
-import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.FindPlayerStarsCnt
+import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.FindPlayerStarsCntUseCase
+import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.RequestLocalChallengeUseCase
 import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.SearchPlayersUseCase
 import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.StartGameUseCase
 import javax.inject.Inject
 
 class BasicGameViewModel@Inject constructor(
-    private val findPlayerStarsCnt: FindPlayerStarsCnt,
+    private val findPlayerStarsCntUseCase: FindPlayerStarsCntUseCase,
     private val searchPlayersUseCase: SearchPlayersUseCase,
     private val startGameUseCase: StartGameUseCase,
+    private val requestLocalChallengeUseCase: RequestLocalChallengeUseCase,
 ) : ViewModel() {
 
     private var _player: MutableLiveData<Result<Player>> = MutableLiveData()
@@ -29,6 +31,9 @@ class BasicGameViewModel@Inject constructor(
     private var _playerList: MutableLiveData<Result<ArrayList<Player>>> = MutableLiveData()
     val playerList: LiveData<Result<ArrayList<Player>>> = _playerList
 
+    private var _playersInGameList: MutableLiveData<Result<ArrayList<Player>>> = MutableLiveData()
+    val playersInGameList: LiveData<Result<ArrayList<Player>>> = _playersInGameList
+
     fun searchPlayers(){
         viewModelScope.launch {
             try{
@@ -41,14 +46,28 @@ class BasicGameViewModel@Inject constructor(
         }
     }
 
-    fun requestLocalChallenge(email: String){
+    fun requestLocalChallenge(uid: String){
+        viewModelScope.launch {
+            try{
+                val newPlayerList = requestLocalChallengeUseCase(uid)
+                _playersInGameList.value = Result.success(newPlayerList)
+                _playerList.value?.onSuccess {
+                    println("REMOVED LIST $newPlayerList")
+                    it.removeAll(newPlayerList)
+                    println("NEW ARRAYLIST $it")
+                    _playerList.value = Result.success(it)
+                }
 
+            }catch (ex: Exception){
+                _playersInGameList.value = Result.failure(ex)
+            }
+        }
     }
 
     fun findStarsCnt(){
         viewModelScope.launch {
             try{
-                val starsCnt = findPlayerStarsCnt()
+                val starsCnt = findPlayerStarsCntUseCase()
                 _starCnt.value = Result.success(starsCnt)
 
             }catch (ex: Exception){
