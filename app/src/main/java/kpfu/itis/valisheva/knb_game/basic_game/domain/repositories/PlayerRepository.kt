@@ -4,6 +4,7 @@ import kpfu.itis.valisheva.knb_game.basic_game.domain.models.Player
 
 interface PlayerRepository {
 
+    suspend fun startGame() : Player
     suspend fun searchPlayers() : ArrayList<Player>
     suspend fun findPlayerStarsCnt() : Int
 

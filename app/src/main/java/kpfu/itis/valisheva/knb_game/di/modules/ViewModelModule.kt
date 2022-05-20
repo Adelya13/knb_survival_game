@@ -6,6 +6,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import kpfu.itis.valisheva.knb_game.app_utils.AppViewModelFactory
+import kpfu.itis.valisheva.knb_game.basic_game.presentation.viewmodels.BasicGameViewModel
 import kpfu.itis.valisheva.knb_game.di.ViewModelKey
 import kpfu.itis.valisheva.knb_game.login.presentation.viewmodels.RegisterViewModel
 import kpfu.itis.valisheva.knb_game.login.presentation.viewmodels.SignInViewModel
@@ -56,6 +57,14 @@ interface ViewModelModule {
     fun bindCreditViewModel(
         viewModel: CreditViewModel
     ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BasicGameViewModel::class)
+    fun bindBasicGameViewModel(
+        viewModel: BasicGameViewModel
+    ): ViewModel
+
 
 
 }

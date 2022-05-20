@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import kpfu.itis.valisheva.knb_game.App
@@ -15,6 +16,9 @@ import kpfu.itis.valisheva.knb_game.start_game.presentation.CreditValidator
 import kpfu.itis.valisheva.knb_game.start_game.presentation.viewmodels.CreditViewModel
 import kpfu.itis.valisheva.knb_game.start_game.presentation.viewmodels.ProfileViewModel
 import javax.inject.Inject
+
+private const val NAVIGATE_KEY = "Navigate"
+private const val START_GAME_KEY = "Start"
 
 class CreditFragment: Fragment(R.layout.fragment_credit) {
 
@@ -30,6 +34,7 @@ class CreditFragment: Fragment(R.layout.fragment_credit) {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         (activity?.application as App).appComponent.inject(this)
+        activity?.onBackPressed()
         super.onCreate(savedInstanceState)
     }
 
@@ -42,17 +47,49 @@ class CreditFragment: Fragment(R.layout.fragment_credit) {
         with(binding){
             btnRules.setOnClickListener {
                 addCreditMoney()
-                findNavController().navigate(
-                    R.id.action_creditFragment_to_mainStoryFragment
-                )
+                navigateToMainStory()
             }
             btnContinue.setOnClickListener {
-                addCreditMoneyAndStartGame()
-                findNavController().navigate(
-                    R.id.action_creditFragment_to_basicGameFragment
-                )
+                addCreditMoney()
+                navigateToBasicGame()
             }
         }
+    }
+
+    private fun navigateToBasicGame(){
+        var bundle: Bundle? = null
+
+        bundle = Bundle().apply {
+            putBoolean(START_GAME_KEY, true)
+        }
+
+        val options = NavOptions.Builder()
+            .setLaunchSingleTop(true)
+            .build()
+
+        findNavController().navigate(
+            R.id.action_creditFragment_to_basicGameFragment,
+            bundle,
+            options
+        )
+    }
+
+    private fun navigateToMainStory(){
+        var bundle: Bundle? = null
+
+        bundle = Bundle().apply {
+            putBoolean(NAVIGATE_KEY, true)
+        }
+
+        val options = NavOptions.Builder()
+            .setLaunchSingleTop(true)
+            .build()
+
+        findNavController().navigate(
+            R.id.action_creditFragment_to_mainStoryFragment,
+            bundle,
+            options
+        )
     }
 
     private fun initObservers(){
@@ -71,14 +108,6 @@ class CreditFragment: Fragment(R.layout.fragment_credit) {
         with(binding) {
             if(validator.checkCredit(inputCreditSum,etCreditSum)){
                 creditViewModel.getCredit(inputCreditSum.text.toString().toInt())
-            }
-        }
-    }
-
-    private fun addCreditMoneyAndStartGame(){
-        with(binding) {
-            if(validator.checkCredit(inputCreditSum,etCreditSum)){
-                creditViewModel.getCreditAndStartGame(inputCreditSum.text.toString().toInt())
             }
         }
     }

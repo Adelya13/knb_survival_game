@@ -28,4 +28,8 @@ class MainActivity : AppCompatActivity() {
         }
         controller = findController(R.id.container)
     }
+
+    override fun onBackPressed() {
+
+    }
 }

@@ -16,6 +16,8 @@ import kpfu.itis.valisheva.knb_game.databinding.FragmentBasicGameBinding
 import kpfu.itis.valisheva.knb_game.decorators.SpaceItemDecorator
 import javax.inject.Inject
 
+private const val START_GAME_KEY = "Start"
+
 class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
 
     private lateinit var binding: FragmentBasicGameBinding
@@ -30,6 +32,7 @@ class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (activity?.application as App).appComponent.inject(this)
+        activity?.onBackPressed()
         super.onCreate(savedInstanceState)
     }
 
@@ -38,6 +41,11 @@ class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
         binding = FragmentBasicGameBinding.bind(view)
         initRV()
         initObservers()
+        if(arguments != null){
+            if(arguments?.get(START_GAME_KEY) == true){
+                basicGameViewModel.startGame()
+            }
+        }
         if(binding.rvPlayers.adapter == null) {
             waitPlayers()
         }
@@ -46,9 +54,6 @@ class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
     private fun initObservers(){
         basicGameViewModel.playerList.observe(viewLifecycleOwner){ it ->
             it?.fold(onSuccess = { playerList ->
-                playerList.forEach { player ->
-                    println(player.toString())
-                }
                 basicGameViewModel.findStarsCnt()
                 initAdapter(playerList)
                 hideLoading()
@@ -65,6 +70,14 @@ class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
                 Log.e("PLAYER_STARS_FAILURE", "findPlayerStars:failed", exception)
             })
         }
+        basicGameViewModel.player.observe(viewLifecycleOwner){
+            it?.fold(onSuccess = { player ->
+
+            },onFailure = { exception ->
+                showMessage("Player not inter to game")
+                Log.e("PLAYER_START_FAILURE", "startGame:failed", exception)
+            })
+        }
 
     }
 
@@ -74,10 +87,15 @@ class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
     }
 
     private fun initAdapter(players: ArrayList<Player>){
+        println("PLAYERS FOR ADAPTER")
+        players.forEach { player ->
+            println(player.toString())
+        }
         playerAdapter = PlayerAdapter(players){
             requestLocalChallenge(it)
         }
-        binding.rvPlayers.apply{
+        println("AAADDDAAAPPPTTEER "+playerAdapter.toString())
+        binding.rvPlayers.apply {
             adapter = playerAdapter
         }
     }
@@ -98,7 +116,7 @@ class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
     private fun showLoading() {
         with(binding){
             progressBar.visibility = View.VISIBLE
-            rvPlayers.visibility = View.INVISIBLE
+           // rvPlayers.visibility = View.INVISIBLE
             ivFirstStar.visibility = View.INVISIBLE
             ivSecondStar.visibility = View.INVISIBLE
             ivThirdStar.visibility = View.INVISIBLE
@@ -111,7 +129,7 @@ class BasicGameFragment: Fragment(R.layout.fragment_basic_game) {
     private fun hideLoading() {
         with(binding){
             progressBar.visibility = View.GONE
-            rvPlayers.visibility = View.VISIBLE
+//            rvPlayers.visibility = View.VISIBLE
             tvTitle.visibility = View.VISIBLE
             tvChooseTitle.visibility = View.VISIBLE
         }

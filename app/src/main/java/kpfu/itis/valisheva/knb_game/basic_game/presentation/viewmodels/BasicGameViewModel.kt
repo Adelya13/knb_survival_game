@@ -8,11 +8,13 @@ import kotlinx.coroutines.launch
 import kpfu.itis.valisheva.knb_game.basic_game.domain.models.Player
 import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.FindPlayerStarsCnt
 import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.SearchPlayersUseCase
+import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.StartGameUseCase
 import javax.inject.Inject
 
 class BasicGameViewModel@Inject constructor(
     private val findPlayerStarsCnt: FindPlayerStarsCnt,
-    private val searchPlayersUseCase: SearchPlayersUseCase
+    private val searchPlayersUseCase: SearchPlayersUseCase,
+    private val startGameUseCase: StartGameUseCase,
 ) : ViewModel() {
 
     private var _player: MutableLiveData<Result<Player>> = MutableLiveData()
@@ -51,6 +53,18 @@ class BasicGameViewModel@Inject constructor(
 
             }catch (ex: Exception){
                 _starCnt.value = Result.failure(ex)
+            }
+        }
+    }
+
+    fun startGame(){
+        viewModelScope.launch {
+            try{
+                val player = startGameUseCase()
+                _player.value = Result.success(player)
+
+            }catch (ex: Exception){
+                _player.value = Result.failure(ex)
             }
         }
     }

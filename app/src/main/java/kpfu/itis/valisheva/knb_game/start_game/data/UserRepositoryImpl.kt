@@ -71,15 +71,17 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun start() {
-        withContext(dispatcher){
-            val user = findUser()
-            user.cntPaper = START_CNT_OF_CARDS
-            user.cntScissors = START_CNT_OF_CARDS
-            user.cntStone = START_CNT_OF_CARDS
-            user.status = true
-            user.cntStar = START_CNT_OF_STARS
-            addPlayer(user)
-        }
+
+//        withContext(dispatcher){
+//            val user = findUser()
+//            user.cntPaper = START_CNT_OF_CARDS
+//            user.cntScissors = START_CNT_OF_CARDS
+//            user.cntStone = START_CNT_OF_CARDS
+//            user.status = true
+//            user.cntStar = START_CNT_OF_STARS
+//            println("UUUUSSSEEEERRRR" +user.toString())
+//            addPlayer(user)
+//        }
     }
 
     private fun addPlayer(user : User){

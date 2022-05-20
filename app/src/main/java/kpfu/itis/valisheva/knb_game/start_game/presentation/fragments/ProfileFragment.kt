@@ -36,6 +36,7 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (activity?.application as App).appComponent.inject(this)
+        activity?.onBackPressed()
         super.onCreate(savedInstanceState)
     }
 
