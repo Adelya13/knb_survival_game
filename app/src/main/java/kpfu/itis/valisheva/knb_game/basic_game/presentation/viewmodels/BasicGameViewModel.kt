@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kpfu.itis.valisheva.knb_game.basic_game.domain.models.Player
-import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.FindPlayerStarsCntUseCase
-import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.RequestLocalChallengeUseCase
-import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.SearchPlayersUseCase
-import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.StartGameUseCase
+import kpfu.itis.valisheva.knb_game.basic_game.domain.usecases.*
+import kpfu.itis.valisheva.knb_game.login.utils.exceptions.NotFoundUserExceptions
 import javax.inject.Inject
 
 class BasicGameViewModel@Inject constructor(
@@ -17,6 +15,8 @@ class BasicGameViewModel@Inject constructor(
     private val searchPlayersUseCase: SearchPlayersUseCase,
     private val startGameUseCase: StartGameUseCase,
     private val requestLocalChallengeUseCase: RequestLocalChallengeUseCase,
+    private val updatePlayersInLocalGame: UpdatePlayersInLocalGame,
+    private val searchYourselfInLocalGameUseCase: SearchYourselfInLocalGameUseCase
 ) : ViewModel() {
 
     private var _player: MutableLiveData<Result<Player>> = MutableLiveData()
@@ -25,8 +25,8 @@ class BasicGameViewModel@Inject constructor(
     private var _starCnt: MutableLiveData<Result<Int>> = MutableLiveData()
     val starCnt: LiveData<Result<Int>> = _starCnt
 
-//    private var _opponent: MutableLiveData<Result<Player>> = MutableLiveData()
-//    val opponent: LiveData<Result<Player>> = _opponent
+    private var _opponentUid: MutableLiveData<Result<String>> = MutableLiveData()
+    val opponentUid: LiveData<Result<String>> = _opponentUid
 
     private var _playerList: MutableLiveData<Result<ArrayList<Player>>> = MutableLiveData()
     val playerList: LiveData<Result<ArrayList<Player>>> = _playerList
@@ -34,12 +34,31 @@ class BasicGameViewModel@Inject constructor(
     private var _playersInGameList: MutableLiveData<Result<ArrayList<Player>>> = MutableLiveData()
     val playersInGameList: LiveData<Result<ArrayList<Player>>> = _playersInGameList
 
+
+
+    fun searchYourselfInLocalGame(){
+        viewModelScope.launch {
+            try {
+                val opponent = searchYourselfInLocalGameUseCase()
+                _opponentUid.value = Result.success(opponent)
+
+            }catch (ex: Exception){
+                _opponentUid.value = Result.failure(ex)
+            }
+        }
+    }
+
     fun searchPlayers(){
         viewModelScope.launch {
             try{
                 val playerList = searchPlayersUseCase()
+                val newPlayerList = updatePlayersInLocalGame()
+                playerList.removeAll(newPlayerList)
                 _playerList.value = Result.success(playerList)
 
+            }catch (ex1: NotFoundUserExceptions){
+                val playerList = searchPlayersUseCase()
+                _playerList.value = Result.success(playerList)
             }catch (ex: Exception){
                 _playerList.value = Result.failure(ex)
             }
@@ -52,9 +71,7 @@ class BasicGameViewModel@Inject constructor(
                 val newPlayerList = requestLocalChallengeUseCase(uid)
                 _playersInGameList.value = Result.success(newPlayerList)
                 _playerList.value?.onSuccess {
-                    println("REMOVED LIST $newPlayerList")
                     it.removeAll(newPlayerList)
-                    println("NEW ARRAYLIST $it")
                     _playerList.value = Result.success(it)
                 }
 

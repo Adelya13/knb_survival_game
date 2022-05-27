@@ -70,5 +70,46 @@
         android:id="@+id/basicGameFragment"
         android:name="kpfu.itis.valisheva.knb_game.basic_game.presentation.fragments.BasicGameFragment"
         android:label="BasicGameFragment"
-        tools:layout="@layout/fragment_basic_game"/>
+        tools:layout="@layout/fragment_basic_game">
+        <action
+            android:id="@+id/action_basicGameFragment_to_playerChallengeFragment"
+            app:destination="@id/playerChallengeFragment" />
+        <action
+            android:id="@+id/action_basicGameFragment_to_cardGameFragmentFirst"
+            app:destination="@id/cardGameFragmentFirst" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerChallengeFragment"
+        android:name="kpfu.itis.valisheva.knb_game.basic_game.presentation.fragments.PlayerChallengeFragment"
+        android:label="PlayerChallengeFragment"
+        tools:layout="@layout/fragment_player_challenge">
+        <action
+            android:id="@+id/action_playerChallengeFragment_to_cardGameFragmentFirst"
+            app:destination="@id/cardGameFragmentFirst" />
+        <action
+            android:id="@+id/action_playerChallengeFragment_to_basicGameFragment"
+            app:destination="@id/basicGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardGameFragmentFirst"
+        android:name="kpfu.itis.valisheva.knb_game.localGame.presentation.fragments.CardGameFragmentFirst"
+        android:label="CardGameFragmentFirst"
+        tools:layout="@layout/fragment_card_game_first">
+        <action
+            android:id="@+id/action_cardGameFragmentFirst_to_basicGameFragment"
+            app:destination="@id/basicGameFragment" />
+        <action
+            android:id="@+id/action_cardGameFragmentFirst_to_cardGameSecondFragment"
+            app:destination="@id/cardGameSecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardGameSecondFragment"
+        android:name="kpfu.itis.valisheva.knb_game.localGame.presentation.fragments.CardGameSecondFragment"
+        android:label="CardGameSecondFragment"
+        tools:layout="@layout/fragment_card_game_second">
+
+        <action
+            android:id="@+id/action_cardGameSecondFragment_to_basicGameFragment"
+            app:destination="@id/basicGameFragment" />
+    </fragment>
 </navigation>

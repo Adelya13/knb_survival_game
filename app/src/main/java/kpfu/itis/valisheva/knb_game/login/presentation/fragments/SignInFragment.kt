@@ -40,6 +40,7 @@ class SignInFragment: Fragment(R.layout.fragment_signin) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSigninBinding.bind(view)
+        binding.progressBar.visibility = View.GONE
         initObservers()
         validator = LoginValidator()
 
@@ -52,6 +53,7 @@ class SignInFragment: Fragment(R.layout.fragment_signin) {
                     validator.checkPassword(inputPassword,etPassword)
                 ){
                     signInViewModel.signIn(email, password)
+                    showLoading()
                 }
 
             }
@@ -71,14 +73,43 @@ class SignInFragment: Fragment(R.layout.fragment_signin) {
                 findNavController().navigate(
                     R.id.action_signInFragment_to_profileFragment
                 )
+                hideLoading()
             },onFailure = { exception ->
                 exception.message?.let { message ->
+                    hideLoading()
                     showMessage(message)
                 }
                 Log.e(TAG, "signInWithEmail:failure", exception)
             })
         }
     }
+
+    private fun showLoading() {
+        with(binding){
+            progressBar.visibility = View.VISIBLE
+            // rvPlayers.visibility = View.INVISIBLE
+            tvAppName.visibility = View.GONE
+            tvSignin.visibility = View.GONE
+            etEmail.visibility = View.GONE
+            etPassword.visibility = View.GONE
+            btnContinue.visibility = View.GONE
+            btnRegister.visibility = View.GONE
+        }
+
+    }
+
+    private fun hideLoading() {
+        with(binding){
+            progressBar.visibility = View.GONE
+            tvAppName.visibility = View.VISIBLE
+            tvSignin.visibility = View.VISIBLE
+            etEmail.visibility = View.VISIBLE
+            etPassword.visibility = View.VISIBLE
+            btnContinue.visibility = View.VISIBLE
+            btnRegister.visibility = View.VISIBLE
+        }
+    }
+
 
     private fun showMessage(message: String) {
         Snackbar.make(

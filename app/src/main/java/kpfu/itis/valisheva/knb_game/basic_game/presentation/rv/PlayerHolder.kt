@@ -17,7 +17,6 @@ class PlayerHolder (
         with(binding) {
             tvName.text = item.name
         }
-
         visibleStars(item.cntStar)
 
         itemView.setOnClickListener {

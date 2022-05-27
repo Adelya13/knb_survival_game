@@ -49,6 +49,7 @@ class RegisterFragment: Fragment(R.layout.fragment_register) {
         binding = FragmentRegisterBinding.bind(view)
         initObservers()
         validator = LoginValidator()
+        binding.progressBar.visibility = View.GONE
 
         with(binding){
             btnContinue.setOnClickListener {
@@ -61,6 +62,7 @@ class RegisterFragment: Fragment(R.layout.fragment_register) {
                     validator.checkName(inputName, etName)
                 ) {
                     registerViewModel.register(email, password, name)
+                    showLoading()
                 }
 
             }
@@ -73,14 +75,42 @@ class RegisterFragment: Fragment(R.layout.fragment_register) {
 
     }
 
+    private fun showLoading() {
+        with(binding){
+            progressBar.visibility = View.VISIBLE
+            tvAppName.visibility = View.GONE
+            tvSignin.visibility = View.GONE
+            etEmail.visibility = View.GONE
+            etName.visibility = View.GONE
+            etPassword.visibility = View.GONE
+            btnContinue.visibility = View.GONE
+            btnSignin.visibility = View.GONE
+        }
+    }
+
+    private fun hideLoading() {
+        with(binding){
+            progressBar.visibility = View.GONE
+            tvAppName.visibility = View.VISIBLE
+            tvSignin.visibility = View.VISIBLE
+            etEmail.visibility = View.VISIBLE
+            etName.visibility = View.VISIBLE
+            etPassword.visibility = View.VISIBLE
+            btnContinue.visibility = View.VISIBLE
+            btnSignin.visibility = View.VISIBLE
+        }
+    }
+
     private fun initObservers(){
         registerViewModel.user.observe(viewLifecycleOwner){
             it?.fold(onSuccess = { user ->
                 println(user.toString())
                 navigateToProfile(user)
+                hideLoading()
 
             },onFailure = { exception ->
                 exception.message?.let { message ->
+                    hideLoading()
                     showMessage(message)
                 }
                 Log.e(TAG, "createUserWithEmail:failed", exception)

@@ -45,7 +45,6 @@ class MainStoryFragment: Fragment(R.layout.fragment_main_story) {
         with(binding){
             if(arguments == null){
                 btnContinue.setOnClickListener {
-                    scrollText.scrollTo(0,0)
                     tvStory.text = StoryMessages.MAIN_STORY_PART_2
                     btnContinue.setOnClickListener {
                         findNavController().navigate(
@@ -56,7 +55,6 @@ class MainStoryFragment: Fragment(R.layout.fragment_main_story) {
             }else if(arguments?.get(NAVIGATE_KEY)==true){
                 tvStory.text = StoryMessages.MAIN_STORY_INSTRUCTIONS_PART_1
                 btnContinue.setOnClickListener {
-                    scrollText.scrollTo(0,0)
                     tvStory.text = StoryMessages.MAIN_STORY_INSTRUCTION_PART_2
                     btnContinue.setOnClickListener {
                        navigateToBasicGame()

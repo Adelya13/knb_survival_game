@@ -46,12 +46,18 @@ class CreditFragment: Fragment(R.layout.fragment_credit) {
 
         with(binding){
             btnRules.setOnClickListener {
-                addCreditMoney()
-                navigateToMainStory()
+                if(validator.checkCredit(inputCreditSum,etCreditSum)){
+                    addCreditMoney()
+                    navigateToMainStory()
+                }
+
             }
+
             btnContinue.setOnClickListener {
-                addCreditMoney()
-                navigateToBasicGame()
+                if(validator.checkCredit(inputCreditSum,etCreditSum)){
+                    addCreditMoney()
+                    navigateToBasicGame()
+                }
             }
         }
     }
@@ -95,7 +101,7 @@ class CreditFragment: Fragment(R.layout.fragment_credit) {
     private fun initObservers(){
         creditViewModel.credit.observe(viewLifecycleOwner){
             it?.fold(onSuccess = { credit ->
-                println(credit.toString())
+               Log.i("CREDIT_SUN","creditSum: $credit")
             },onFailure = { exception ->
                 showMessage("Credit technical problems")
                 Log.e("PROFILE_FAILURE", "createUserWithEmail:failed", exception)
@@ -105,11 +111,7 @@ class CreditFragment: Fragment(R.layout.fragment_credit) {
 
 
     private fun addCreditMoney(){
-        with(binding) {
-            if(validator.checkCredit(inputCreditSum,etCreditSum)){
-                creditViewModel.getCredit(inputCreditSum.text.toString().toInt())
-            }
-        }
+        creditViewModel.getCredit(binding.inputCreditSum.text.toString().toInt())
     }
 
     private fun showMessage(message: String) {

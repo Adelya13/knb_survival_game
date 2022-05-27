@@ -4,5 +4,4 @@ data class UserInfo(
     val name: String,
     val email: String,
     val moneyCnt: Int,
-    val number: Int,
 )

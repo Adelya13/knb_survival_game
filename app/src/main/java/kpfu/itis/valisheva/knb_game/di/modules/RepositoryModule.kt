@@ -4,6 +4,8 @@ import dagger.Binds
 import dagger.Module
 import kpfu.itis.valisheva.knb_game.basic_game.data.PlayerRepositoryImpl
 import kpfu.itis.valisheva.knb_game.basic_game.domain.repositories.PlayerRepository
+import kpfu.itis.valisheva.knb_game.localGame.data.LocalGamePlayersRepositoryImpl
+import kpfu.itis.valisheva.knb_game.localGame.domain.repository.LocalGamePlayersRepository
 import kpfu.itis.valisheva.knb_game.login.data.UserInfoRepositoryImpl
 import kpfu.itis.valisheva.knb_game.login.domain.repositories.UserInfoRepository
 import kpfu.itis.valisheva.knb_game.start_game.data.UserRepositoryImpl
@@ -26,5 +28,10 @@ interface RepositoryModule {
     fun playerRepository(
         impl: PlayerRepositoryImpl
     ): PlayerRepository
+
+    @Binds
+    fun localGamePlayersRepository(
+        impl: LocalGamePlayersRepositoryImpl
+    ): LocalGamePlayersRepository
 
 }

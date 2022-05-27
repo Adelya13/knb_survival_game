@@ -2,10 +2,10 @@
     <!-- Base application theme. -->
     <style name="Theme.Knb_game" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/dark_red</item>
-        <item name="colorPrimaryDark">@color/gray</item>
-        <item name="colorAccent">@color/dark_red</item>
-        <item name="backgroundColor">@color/black</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/dark_red</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="backgroundColor">@color/light_red</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

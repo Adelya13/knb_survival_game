@@ -8,5 +8,9 @@ interface PlayerRepository {
     suspend fun searchPlayers() : ArrayList<Player>
     suspend fun findPlayerStarsCnt() : Int
     suspend fun requestLocalChallenge(email: String) : ArrayList<Player>
+    suspend fun updateLocalChallenge() : ArrayList<Player>
+    suspend fun searchYourselfInLocalGame(): String
+    suspend fun findPlayerByUid(uid: String): Player
+    suspend fun setStatus(status: Boolean, uid: String)
 
 }

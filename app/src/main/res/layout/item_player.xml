@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/light_red"
+    android:background="@color/black"
     >
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Name"
+        android:textColor="@color/light_red"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
         app:layout_constraintStart_toEndOf="@+id/iv_avatar"

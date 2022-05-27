@@ -16,7 +16,7 @@ class LoginValidator {
             etPassword.error = "Пароль должен содержать не менее 6-и символов"
             valid = false
         } else {
-            //!password.contains(Regex(""))
+
             etPassword.error = null
         }
         return valid

@@ -30,14 +30,12 @@ class UserInfoRepositoryImpl @Inject constructor(
                                 val user = UserInfo(
                                     info.child("name").value.toString(),
                                     info.child("email").value.toString(),
-                                    info.child("moneyCnt").value.toString().toInt(),
-                                    info.child("number").value.toString().toInt()
+                                    info.child("moneyCnt").value.toString().toInt()
                                 )
                                 it.resume(user)
 
                             }catch (e: Exception){
                                 it.resumeWithException(e)
-                                println("Exception")
                             }
                         }.addOnFailureListener{ex->
                             it.resumeWithException(NotFoundUserExceptions("Нет сети"))
@@ -58,7 +56,7 @@ class UserInfoRepositoryImpl @Inject constructor(
                 if (task.isSuccessful) {
                     val currUser = auth.currentUser
                     if(currUser!=null) {
-                        val user = UserInfo(name,email,0, auth.currentUser.hashCode())
+                        val user = UserInfo(name,email,0)
                         dbReference.child("users").child(currUser.uid).setValue(user)
                         it.resume(user)
 

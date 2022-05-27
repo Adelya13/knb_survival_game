@@ -43,6 +43,7 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
+        showLoading()
         initObservers()
         profileViewModel.findUser()
 
@@ -63,11 +64,12 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
     private fun initObservers(){
         profileViewModel.user.observe(viewLifecycleOwner){
             it?.fold(onSuccess = { user ->
-                println(user.toString())
+                hideLoading()
                 if(user.cntPaper == null){
                     displayShortInformation(user)
                 }
             },onFailure = { exception ->
+                hideLoading()
                 findNavController().navigate(
                     R.id.action_profileFragment_to_signInFragment
                 )
@@ -86,32 +88,55 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
 
     private fun displayShortInformation(user: User){
         with(binding){
-            doInvisibleAdditionalInfo()
+//            doInvisibleAdditionalInfo()
             tvNamePut.text = user.name
             tvMoneyCntPut.text = user.moneyCnt.toString()
+            tvNamePut.visibility = View.VISIBLE
+            tvMoneyCntPut.visibility = View.VISIBLE
         }
     }
 
     private fun doInvisibleAdditionalInfo(){
         with(binding){
-
-            ivFirstStar.visibility = View.INVISIBLE
-            ivSecondStar.visibility = View.INVISIBLE
-            ivThirdStar.visibility = View.INVISIBLE
-            tvChoose.visibility = View.INVISIBLE
-            tvCreditPut.visibility = View.INVISIBLE
-            tvCards.visibility = View.INVISIBLE
-            tvPercent.visibility = View.INVISIBLE
-            tvMoneyPercentPut.visibility = View.INVISIBLE
-            tvScissors.visibility = View.INVISIBLE
-            tvScissorsPut.visibility = View.INVISIBLE
-            tvPaper.visibility = View.INVISIBLE
-            tvMoneyPaperPut.visibility = View.INVISIBLE
-            tvStone.visibility = View.INVISIBLE
-            tvStonePut.visibility = View.INVISIBLE
+            ivFirstStar.visibility = View.GONE
+            ivSecondStar.visibility = View.GONE
+            ivThirdStar.visibility = View.GONE
+            tvChoose.visibility = View.GONE
+            tvCreditPut.visibility = View.GONE
+            tvCards.visibility = View.GONE
+            tvPercent.visibility = View.GONE
+            tvMoneyPercentPut.visibility = View.GONE
+            tvScissors.visibility = View.GONE
+            tvScissorsPut.visibility = View.GONE
+            tvPaper.visibility = View.GONE
+            tvMoneyPaperPut.visibility = View.GONE
+            tvStone.visibility = View.GONE
+            tvStonePut.visibility = View.GONE
         }
     }
 
+    private fun showLoading() {
+        with(binding){
+            progressBar.visibility = View.VISIBLE
+            doInvisibleAdditionalInfo()
+            btnContinue.visibility = View.GONE
+            btnExit.visibility = View.GONE
+            tvName.visibility = View.GONE
+            tvMoneyCnt.visibility = View.GONE
+            tvNamePut.visibility = View.GONE
+            tvMoneyCntPut.visibility = View.GONE
+        }
+    }
+
+    private fun hideLoading() {
+        with(binding){
+            progressBar.visibility = View.GONE
+            btnContinue.visibility = View.VISIBLE
+            btnExit.visibility = View.VISIBLE
+            tvName.visibility = View.VISIBLE
+            tvMoneyCnt.visibility = View.VISIBLE
+        }
+    }
 
     private fun showMessage(message: String) {
         Snackbar.make(
